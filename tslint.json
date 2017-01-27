@@ -25,7 +25,8 @@
     "switch-default": false,
     "jsx-no-lambda": true,
     "radix": false,
-    "interface-name": false
+    "interface-name": false,
+    "semicolon": [true, "always", "ignore-bound-class-methods"]
   },
   "rulesDirectory": [
 
