@@ -2,11 +2,12 @@ import * as React from "react";
 
 interface Props {
 	loading?: boolean;
+	spinner?: React.ReactNode;
 }
 
 export class LoadingOverlay extends React.Component<Props, void> {
 
-	private spinner: HTMLDivElement;
+	private spinnerContainer: HTMLDivElement;
 	private overlay: HTMLDivElement;
 	private container: HTMLDivElement;
 
@@ -32,8 +33,8 @@ export class LoadingOverlay extends React.Component<Props, void> {
 					ref={this.mountOverlay}
 					style={overlayStyle}
 				>
-					<div ref={this.mountSpinner} style={{textAlign: "center"}}>
-						Loading
+					<div ref={this.mountSpinner} style={{textAlign: "center", display: "inline-block"}}>
+						{this.props.spinner}
 					</div>
 				</div>
 			</div>
@@ -42,10 +43,15 @@ export class LoadingOverlay extends React.Component<Props, void> {
 
 	public componentDidMount() {
 		document.addEventListener("scroll", this.positionSpinner);
+		this.positionSpinner();
+	}
+
+	public componentDidUpdate() {
+		this.positionSpinner();
 	}
 
 	private mountSpinner = (ref: HTMLDivElement) => {
-		this.spinner = ref;
+		this.spinnerContainer = ref;
 	};
 	private mountContainer = (ref: HTMLDivElement) => {
 		this.container = ref;
@@ -56,7 +62,7 @@ export class LoadingOverlay extends React.Component<Props, void> {
 
 	private positionSpinner = () => {
 		const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-		const spinnerHeight = this.spinner.offsetHeight;
+		const spinnerHeight = this.spinnerContainer.offsetHeight;
 		const boundingClientRect = this.container.getBoundingClientRect();
 
 		const visiblePartY = this.getVisiblePart(viewportHeight, boundingClientRect.top, boundingClientRect.height);
