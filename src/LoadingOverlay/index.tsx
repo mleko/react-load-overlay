@@ -1,11 +1,11 @@
 import * as React from "react";
 
-interface Props {
+export interface LoadingOverlayProps {
 	loading?: boolean;
 	spinner?: React.ReactNode;
 }
 
-export class LoadingOverlay extends React.Component<Props, void> {
+export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 
 	private spinnerContainer: HTMLDivElement;
 	private overlay: HTMLDivElement;

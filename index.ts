@@ -1,1 +1,1 @@
-export {LoadingOverlay} from "./src/LoadingOverlay";
+export {LoadingOverlay, LoadingOverlayProps} from "./src/LoadingOverlay";
