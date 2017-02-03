@@ -1,8 +1,10 @@
 import * as React from "react";
+import {merge} from "typescript-object-utils";
 
 export interface LoadingOverlayProps {
 	loading?: boolean;
 	spinner?: React.ReactNode;
+	overlayStyle?: React.CSSProperties;
 }
 
 export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
@@ -12,20 +14,24 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 	private container: HTMLDivElement;
 
 	public render(): JSX.Element {
-		const overlayStyle = {
+		const baseOverlayStyle = {
 			position: "absolute",
 			left: 0,
 			right: 0,
 			top: 0,
 			bottom: 0,
 			backgroundColor: "rgba(150,150,150,0.8)",
-			zIndex: 9999,
+			zIndex: 999,
 			display: this.props.loading ? "block" : "none",
-			transition: "padding 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+			transition: "padding 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+			textAlign: "center"
 		};
 		const containerStyle = {
 			position: "relative"
 		};
+
+		const overlayStyle = merge(baseOverlayStyle, this.props.overlayStyle || {});
+
 		return (
 			<div style={containerStyle} ref={this.mountContainer}>
 				{this.props.children}

@@ -1,6 +1,6 @@
 {
   "name": "react-load-overlay",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Loading overlay with customizable spinner",
   "keywords": [
     "react",
@@ -12,12 +12,14 @@
   "author": "Daniel Król",
   "license": "MIT",
   "scripts": {
+    "start": "webpack-dev-server --open",
     "prepublish": "tsc -d",
-    "start": "webpack-dev-server --open"
+    "postpublish": "rm ./index.{js,d.ts} ./src/**/*.{js,d.ts}"
   },
   "dependencies": {
     "@types/react": "^15.0.0",
-    "react": "^15.3.0"
+    "react": "^15.3.0",
+    "typescript-object-utils": "^0.2.1"
   },
   "devDependencies": {
     "@types/react-dom": "^0.14.14",

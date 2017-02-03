@@ -37,11 +37,11 @@ export class Examples extends React.Component<void, State> {
 
 	private toggleOverlay = () => {
 		this.setState({loading: !this.state.loading});
-	}
+	};
 
 	private toggleSpinner = () => {
 		this.setState({spinnerId: (this.state.spinnerId + 1) % spinners.length});
-	}
+	};
 }
 
 interface State {
