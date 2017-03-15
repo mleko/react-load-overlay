@@ -1,0 +1,15 @@
+image: node
+
+before_script:
+  - npm install
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - webpack
+    - cp dist/bundle.js public/
+    - cp examples/index.html public/
+  artifacts:
+    paths:
+      - public

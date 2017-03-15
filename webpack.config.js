@@ -28,6 +28,10 @@ let config = {
         // Set index.tsx as application entry point.
         './examples/index.tsx'
     ],
+    output: {
+        path: "./dist",
+        filename: 'bundle.js'
+    },
     devServer: {
         contentBase: './examples/'
     },
