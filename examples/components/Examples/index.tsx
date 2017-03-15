@@ -23,25 +23,27 @@ export class Examples extends React.Component<void, State> {
 			<div>
 				<button onClick={this.toggleOverlay}>Toggle overlay</button>
 				<button onClick={this.toggleSpinner}>Switch spinner</button>
-				<LoadingOverlay
-					loading={this.state.loading}
-					spinner={spinners[this.state.spinnerId]}
-				>
-					<div style={{maxWidth: 1000, display: "inline-block"}}>
-						{loremIpsum}
-					</div>
-				</LoadingOverlay>
+				<div>
+					<LoadingOverlay
+						loading={this.state.loading}
+						spinner={spinners[this.state.spinnerId]}
+					>
+						<div style={{maxWidth: 1000, display: "inline-block"}}>
+							{loremIpsum}
+						</div>
+					</LoadingOverlay>
 
-				<div style={{height: 30}}/>
+					<div style={{height: 30}}/>
 
-				<LoadingOverlay
-					loading={this.state.loading}
-					spinner={spinners[this.state.spinnerId]}
-				>
-					<div style={{width: 2000, display: "inline-block"}}>
-						{loremIpsum}
-					</div>
-				</LoadingOverlay>
+					<LoadingOverlay
+						loading={this.state.loading}
+						spinner={spinners[this.state.spinnerId]}
+					>
+						<div style={{width: 2000, display: "inline-block"}}>
+							{loremIpsum}
+						</div>
+					</LoadingOverlay>
+				</div>
 			</div>
 		);
 	}

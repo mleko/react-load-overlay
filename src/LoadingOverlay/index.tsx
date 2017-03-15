@@ -24,7 +24,7 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 			zIndex: 999,
 			display: this.props.loading ? "block" : "none",
 			transition: "padding 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-			textAlign: "center"
+			textAlign: "left"
 		};
 		const containerStyle = {
 			position: "relative",
@@ -68,26 +68,54 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 	};
 
 	private positionSpinner = () => {
-		const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-		const spinnerHeight = this.spinnerContainer.offsetHeight;
 		const boundingClientRect = this.container.getBoundingClientRect();
 
-		const visiblePartY = this.getVisiblePart(viewportHeight, boundingClientRect.top, boundingClientRect.height);
-		if (null !== visiblePartY) {
-			const visiblePartYSize = visiblePartY.to - visiblePartY.from;
-			const offsetTop = Math.min(boundingClientRect.height - spinnerHeight, visiblePartY.from + (visiblePartYSize - spinnerHeight) / 2);
+		const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		const spinnerHeight = this.spinnerContainer.offsetHeight;
+
+		const offsetTop = calculateOffset(
+			viewportHeight, boundingClientRect.top,
+			boundingClientRect.height, spinnerHeight
+		);
+		if (null !== offsetTop) {
 			this.overlay.style.paddingTop = String(offsetTop) + "px";
 		}
 
-	};
+		const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		const spinnerWidth = this.spinnerContainer.offsetWidth;
 
-	private getVisiblePart(viewportSize, from, size) {
-		if (from >= viewportSize || from + size <= 0) {
-			return null;
+		const offsetLeft = calculateOffset(
+			viewportWidth, boundingClientRect.left,
+			boundingClientRect.width, spinnerWidth
+		);
+		if (null !== offsetLeft) {
+			this.overlay.style.paddingLeft = String(offsetLeft) + "px";
 		}
-		return {
-			from: from < 0 ? -from : 0,
-			to: from + size > viewportSize ? viewportSize - from : size
-		};
+
+	};
+}
+
+function calculateOffset(
+	viewportSize: number, containerStart: number,
+	containerSize: number, spinnerSize: number
+): number {
+	const visiblePart = getVisiblePart(viewportSize, containerStart, containerSize);
+	if (null !== visiblePart) {
+		const visiblePartSize = visiblePart.to - visiblePart.from;
+		return Math.min(
+			containerSize - spinnerSize,
+			visiblePart.from + (visiblePartSize - spinnerSize) / 2
+		);
 	}
+	return null;
+}
+
+function getVisiblePart(viewportSize: number, from: number, size: number) {
+	if (from >= viewportSize || from + size <= 0) {
+		return null;
+	}
+	return {
+		from: from < 0 ? -from : 0,
+		to: from + size > viewportSize ? viewportSize - from : size
+	};
 }
