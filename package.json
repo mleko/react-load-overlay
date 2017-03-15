@@ -13,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --open",
-    "prepublish": "tsc -d",
+    "prepublishOnly": "tsc -d",
     "postpublish": "rm ./index.{js,d.ts} ./src/**/*.{js,d.ts}"
   },
   "dependencies": {
