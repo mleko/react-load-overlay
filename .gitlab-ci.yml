@@ -7,7 +7,7 @@ pages:
   stage: deploy
   script:
     - mkdir public
-    - webpack
+    - $(npm bin)/webpack
     - cp dist/bundle.js public/
     - cp examples/index.html public/
   artifacts:
