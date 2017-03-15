@@ -27,7 +27,8 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 			textAlign: "center"
 		};
 		const containerStyle = {
-			position: "relative"
+			position: "relative",
+			display: "inline-block"
 		};
 
 		const overlayStyle = merge(baseOverlayStyle, this.props.overlayStyle || {});
