@@ -1,4 +1,5 @@
 let webpack = require('webpack');
+let path = require("path");
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -29,7 +30,7 @@ let config = {
         './examples/index.tsx'
     ],
     output: {
-        path: "./dist",
+        path: path.resolve(__dirname, "dist"),
         filename: 'bundle.js'
     },
     devServer: {
