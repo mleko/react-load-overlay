@@ -54,7 +54,12 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 	}
 
 	public componentDidUpdate() {
-		this.positionSpinner();
+		if(window.requestAnimationFrame){
+			requestAnimationFrame(this.positionSpinner);
+		}else{
+			// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Nested_timeouts_forced_to_>4ms
+			setTimeout(this.positionSpinner, 4);
+		}
 	}
 
 	private mountSpinner = (ref: HTMLDivElement) => {
