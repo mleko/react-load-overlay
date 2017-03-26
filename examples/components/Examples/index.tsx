@@ -1,5 +1,5 @@
 import * as React from "react";
-import {LoadingOverlay} from "../../../src/LoadingOverlay";
+import {FadingOverlay as LoadingOverlay} from "../../../";
 
 const spinners = [
 	<img width={200} src="http://i.imgur.com/jtkTPvb.gif"/>,
