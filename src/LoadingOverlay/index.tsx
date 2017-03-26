@@ -7,11 +7,16 @@ export interface LoadingOverlayProps {
 	overlayStyle?: React.CSSProperties;
 }
 
-export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
+export class LoadingOverlay extends React.Component<LoadingOverlayProps, State> {
 
 	private spinnerContainer: HTMLDivElement;
 	private overlay: HTMLDivElement;
 	private container: HTMLDivElement;
+
+	constructor(props: LoadingOverlayProps, context: any) {
+		super(props, context);
+		this.state = {positioned: false};
+	}
 
 	public render(): JSX.Element {
 		const baseOverlayStyle = {
@@ -23,7 +28,7 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 			backgroundColor: "rgba(150,150,150,0.8)",
 			zIndex: 999,
 			display: this.props.loading ? "block" : "none",
-			transition: "padding 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+			transition: this.state.positioned ? "padding 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)" : null,
 			textAlign: "left"
 		};
 		const containerStyle = {
@@ -50,16 +55,14 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 
 	public componentDidMount() {
 		document.addEventListener("scroll", this.positionSpinner);
-		this.positionSpinner();
+		this.onRepaint(this.positionSpinner);
 	}
 
 	public componentDidUpdate() {
-		if(window.requestAnimationFrame){
-			requestAnimationFrame(this.positionSpinner);
-		}else{
-			// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Nested_timeouts_forced_to_>4ms
-			setTimeout(this.positionSpinner, 4);
+		if (!this.props.loading && this.state.positioned) {
+			this.setState({positioned: false});
 		}
+		this.onRepaint(this.positionSpinner);
 	}
 
 	private mountSpinner = (ref: HTMLDivElement) => {
@@ -70,6 +73,15 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 	};
 	private mountOverlay = (ref: HTMLDivElement) => {
 		this.overlay = ref;
+	};
+
+	private onRepaint = (fun: () => void) => {
+		if (window.requestAnimationFrame) {
+			requestAnimationFrame(fun);
+		} else {
+			// https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout#Nested_timeouts_forced_to_>4ms
+			setTimeout(fun, 4);
+		}
 	};
 
 	private positionSpinner = () => {
@@ -96,7 +108,11 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, void> {
 		if (null !== offsetLeft) {
 			this.overlay.style.paddingLeft = String(offsetLeft) + "px";
 		}
-
+		if (!this.state.positioned && this.props.loading) {
+			this.onRepaint(() => {
+				this.setState({positioned: true});
+			});
+		}
 	};
 }
 
@@ -123,4 +139,8 @@ function getVisiblePart(viewportSize: number, from: number, size: number) {
 		from: from < 0 ? -from : 0,
 		to: from + size > viewportSize ? viewportSize - from : size
 	};
+}
+
+interface State {
+	positioned: boolean;
 }
