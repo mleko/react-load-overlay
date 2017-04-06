@@ -9,12 +9,16 @@
     "loader",
     "spinner"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Daniel Król",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "prepublishOnly": "tsc -d",
-    "postpublish": "rm ./index.{js,d.ts} ./src/**/*.{js,d.ts}"
+    "start": "webpack-dev-server --config examples/webpack.config.js --open",
+    "compile": "tsc -d",
+    "compile:examples": "webpack --config examples/webpack.config.js",
+    "prepublishOnly": "npm run compile",
+    "lint": "tslint 'src/**' 'examples/src/**'"
   },
   "dependencies": {
     "@types/react": "^15.0.0",

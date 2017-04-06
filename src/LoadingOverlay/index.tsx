@@ -7,7 +7,7 @@ export interface LoadingOverlayProps {
 	overlayStyle?: React.CSSProperties;
 }
 
-export class LoadingOverlay extends React.Component<LoadingOverlayProps, State> {
+export class LoadingOverlay extends React.Component<LoadingOverlayProps, LoadingOverlayState> {
 
 	private spinnerContainer: HTMLDivElement;
 	private overlay: HTMLDivElement;
@@ -141,6 +141,6 @@ function getVisiblePart(viewportSize: number, from: number, size: number) {
 	};
 }
 
-interface State {
+export interface LoadingOverlayState {
 	positioned: boolean;
 }

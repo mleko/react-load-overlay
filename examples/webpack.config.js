@@ -25,16 +25,16 @@ let config = {
             }
         ]
     },
-    entry: [
+    entry: {
         // Set index.tsx as application entry point.
-        './examples/index.tsx'
-    ],
+        "bundle": path.resolve(__dirname, "index.tsx")
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: './examples/'
+        contentBase: path.resolve(__dirname, "public_html")
     },
     plugins: [
         new webpack.DefinePlugin({
