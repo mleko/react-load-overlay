@@ -7,7 +7,7 @@ const LoadingLoremIpsum = loading({overlayProps: {spinner}})(LoremIpsum);
 const ReadyLoremIpsum = loading({overlayProps: {spinner}, isLoading: false, loadingPropName: "ready"})
 (LoremIpsum);
 
-export class WrappedExamples extends React.Component<void, void> {
+export class WrappedExamples extends React.Component<{}, void> {
 
 	public render(): JSX.Element {
 		return (

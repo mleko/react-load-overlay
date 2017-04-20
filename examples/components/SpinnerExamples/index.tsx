@@ -3,9 +3,9 @@ import {FadingOverlay as LoadingOverlay} from "../../../";
 import {LoremIpsum} from "../Examples/LoremIpsum";
 import {spinners} from "../Examples/spinners";
 
-export class SpinnerExamples extends React.Component<void, State> {
+export class SpinnerExamples extends React.Component<{}, State> {
 
-	constructor(props: void, context: any) {
+	constructor(props: {}, context: any) {
 		super(props, context);
 		this.state = {
 			loading: true,
