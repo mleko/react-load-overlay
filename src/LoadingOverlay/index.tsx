@@ -5,6 +5,7 @@ export interface LoadingOverlayProps {
 	loading?: boolean;
 	spinner?: React.ReactNode;
 	overlayStyle?: React.CSSProperties;
+	containerStyle?: React.CSSProperties;
 }
 
 export class LoadingOverlay extends React.Component<LoadingOverlayProps, LoadingOverlayState> {
@@ -31,10 +32,10 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 			transition: this.state.positioned ? "padding 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)" : null,
 			textAlign: "left"
 		};
-		const containerStyle = {
+		const containerStyle = merge({
 			position: "relative",
 			display: "inline-block"
-		};
+		}, this.props.containerStyle || {});
 
 		const overlayStyle = merge(baseOverlayStyle, this.props.overlayStyle || {});
 

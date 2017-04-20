@@ -3,7 +3,7 @@ import {animate, AnimationConfig} from "react-animate-hoc";
 import {merge} from "typescript-object-utils";
 import {LoadingOverlay, LoadingOverlayProps} from "../LoadingOverlay";
 
-export function fadingOverlay(animationOptions?: AnimationConfig) {
+export function fadingOverlay(animationOptions?: AnimationConfig): React.SFC<LoadingOverlayProps> {
 	const overlay = animatedOverlay(animationOptions || {duration: 200});
 	return (props: LoadingOverlayProps) => {
 		props = merge(props, {opacity: props.loading ? 1 : 0});
@@ -13,7 +13,7 @@ export function fadingOverlay(animationOptions?: AnimationConfig) {
 
 export const FadingOverlay = fadingOverlay();
 
-function animatedOverlay(animationOptions?: AnimationConfig) {
+function animatedOverlay(animationOptions?: AnimationConfig): React.SFC<LoadingOverlayProps> {
 	return animate({properties: {opacity: animationOptions || true}})
 	((props: AnimatedOverlayProps) => {
 		props = merge(props, {
