@@ -3,8 +3,8 @@ import {loading} from "../../../src/loading";
 import {LoremIpsum} from "../Examples/LoremIpsum";
 import {spinner} from "../Examples/spinners";
 
-const LoadingLoremIpsum = loading({overlayProps: {spinner}})(LoremIpsum);
-const ReadyLoremIpsum = loading({overlayProps: {spinner}, isLoading: false, loadingPropName: "ready"})
+const LoadingLoremIpsum = loading({overlayProps: {spinner, inline: true}})(LoremIpsum);
+const ReadyLoremIpsum = loading({overlayProps: {spinner, inline: true}, isLoading: false, loadingPropName: "ready"})
 (LoremIpsum);
 
 export class WrappedExamples extends React.Component<{}, void> {

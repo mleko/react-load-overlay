@@ -22,6 +22,7 @@ export class SpinnerExamples extends React.Component<{}, State> {
 					<LoadingOverlay
 						loading={this.state.loading}
 						spinner={spinners[this.state.spinnerId]}
+						inline={true}
 					>
 						<LoremIpsum style={{maxWidth: 1000}}/>
 					</LoadingOverlay>
@@ -31,6 +32,7 @@ export class SpinnerExamples extends React.Component<{}, State> {
 					<LoadingOverlay
 						loading={this.state.loading}
 						spinner={spinners[this.state.spinnerId]}
+						inline={true}
 					>
 						<LoremIpsum style={{width: 2000}}/>
 					</LoadingOverlay>

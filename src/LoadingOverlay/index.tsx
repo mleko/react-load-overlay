@@ -3,6 +3,7 @@ import {merge} from "typescript-object-utils";
 
 export interface LoadingOverlayProps {
 	loading?: boolean;
+	inline?: boolean;
 	spinner?: React.ReactNode;
 	overlayStyle?: React.CSSProperties;
 	containerStyle?: React.CSSProperties;
@@ -34,7 +35,7 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 		};
 		const containerStyle = merge({
 			position: "relative",
-			display: "inline-block"
+			display: this.props.inline ? "inline-block" : "block"
 		}, this.props.containerStyle || {});
 
 		const overlayStyle = merge(baseOverlayStyle, this.props.overlayStyle || {});
