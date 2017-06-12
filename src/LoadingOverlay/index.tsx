@@ -60,6 +60,10 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 		this.onRepaint(this.positionSpinner);
 	}
 
+	public componentWillUnmount() {
+		document.removeEventListener("scroll", this.positionSpinner);
+	}
+
 	public componentDidUpdate() {
 		if (!this.props.loading && this.state.positioned) {
 			this.setState({positioned: false});
