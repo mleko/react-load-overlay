@@ -57,7 +57,7 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 
 	public componentDidMount() {
 		document.addEventListener("scroll", this.positionSpinner);
-		this.onRepaint(this.positionSpinner);
+		this.reposition();
 	}
 
 	public componentWillUnmount() {
@@ -68,18 +68,25 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 		if (!this.props.loading && this.state.positioned) {
 			this.setState({positioned: false});
 		}
-		this.onRepaint(this.positionSpinner);
+		this.reposition();
 	}
 
 	private mountSpinner = (ref: HTMLDivElement) => {
 		this.spinnerContainer = ref;
+		this.reposition();
 	};
 	private mountContainer = (ref: HTMLDivElement) => {
 		this.container = ref;
+		this.reposition();
 	};
 	private mountOverlay = (ref: HTMLDivElement) => {
 		this.overlay = ref;
+		this.reposition();
 	};
+
+	private reposition() {
+		this.onRepaint(this.positionSpinner);
+	}
 
 	private onRepaint = (fun: () => void) => {
 		if (window.requestAnimationFrame) {
@@ -91,6 +98,10 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 	};
 
 	private positionSpinner = () => {
+		if (!this.container || !this.spinnerContainer || this.overlay) {
+			return;
+		}
+
 		const boundingClientRect = this.container.getBoundingClientRect();
 
 		const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
