@@ -98,7 +98,7 @@ export class LoadingOverlay extends React.Component<LoadingOverlayProps, Loading
 	};
 
 	private positionSpinner = () => {
-		if (!this.container || !this.spinnerContainer || this.overlay) {
+		if (!this.container || !this.spinnerContainer || !this.overlay) {
 			return;
 		}
 
