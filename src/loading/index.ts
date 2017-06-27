@@ -16,7 +16,7 @@ export function loading(options: LoadOptions): <C extends Function>(WrappedCompo
 
 	return <T extends React.ComponentClass<P>, P>(WrappedComponent: T): React.ComponentClass<P> => {
 
-		class Animate extends React.Component<P, void> {
+		class Animate extends React.Component<P, {}> {
 
 			public static displayName = "LoadingOverlay(" + (WrappedComponent["displayName"] || WrappedComponent["name"] || "Component") + ")";
 

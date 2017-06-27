@@ -6,5 +6,5 @@ export const LoremIpsum = (props) => {
 	if (props.length) {
 		t = t.slice(0, props.length);
 	}
-	return React.createElement("div", {style: props.style}, t);
+	return React.createElement("div", {style: props.style} as any, t);
 };
